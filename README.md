@@ -73,7 +73,7 @@ El repositorio está dividido en dos grandes directorios para mantener una arqui
 
 ### 1. Clonar el repositorio
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/Lpsolaress/PW2-Practica-1.git
 cd PW-Proyecto 2
 ```
 
