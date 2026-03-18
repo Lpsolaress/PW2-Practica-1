@@ -1,0 +1,11 @@
+{
+  "name": "pw-proyecto-2",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "scripts": {
+    "build": "npm --prefix frontend run build",
+    "dev": "concurrently -k -n backend,frontend \"npm --prefix backend run start\" \"npm --prefix frontend run dev\""
+  }
+}
