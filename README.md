@@ -1,120 +1,119 @@
-# 🚀 Sistema de eCommerce con Soporte en Tiempo Real
+# Proyecto 2 - Gestión de Productos y Carrito
 
-Este proyecto es una aplicación web de comercio electrónico de extremo a extremo que combina un frontend reactivo desarrollado en **Svelte 5** y un backend en **Node.js** con soporte para comunicación en tiempo real. 
-
----
-
-## 🛠️ Tecnologías Utilizadas
-
-### Frontend
-- **Svelte 5** (uso de **Runes** para la reactividad: `$state`, `$derived`, `$effect`).
-- **Vite** para el empaquetado y desarrollo rápido.
-- **Vanilla CSS** con un diseño moderno, oscuro y premium.
-- **Leaflet** para mapas interactivos en la selección de direcciones a domicilio.
-
-### Backend
-- **Node.js** con **Express**.
-- **Socket.io** para chat de soporte y notificaciones en vivo.
-- **Mongoose** (MongoDB) para el modelado de bases de datos.
-- **JWT** (JSON Web Tokens) para autenticación segura en endpoints y sockets.
+Este proyecto consiste en una aplicación web con un **Frontend** desarrollado en **Svelte 5** (con Vite) y un **Backend** construido con **Express.js** y **MongoDB**.
 
 ---
 
-## 🌟 Características Principales
+## 🚀 Instalación y Ejecución
 
-### 1. **Autenticación y Roles**
-- ✅ Registro y login basado en JWT.
-- ✅ Roles diferenciados: **Usuario** y **Administrador**.
-- ✅ Contraseñas encriptadas con `bcrypt`.
+### Requisitos Previos
+*   [Node.js](https://nodejs.org/) (versión LTS recomendada)
+*   [MongoDB](https://www.mongodb.com/) (Local o MongoDB Atlas)
 
-### 2. **Tienda y Carrito de Compras**
-- ✅ Dashboard de productos con filtros, ordenamiento y paginación.
-- ✅ Modal de vista rápida de productos.
-- ✅ Carrito persistente: agregar, quitar y modificar cantidades.
-- ✅ **Mapa Interactivo**: Selección de direcciones en vivo o de locales Nuba para recolectar.
-- ✅ **Checkout**: Simulación de compra con múltiples métodos de pago (Visa/Mastercard, Paypal, **Apple Pay**).
+### Pasos para la Instalación
 
-### 3. **Centro de Soporte (Chat en Vivo)**
-- ✅ Chat bidireccional entre usuarios y administradores.
-- ✅ Subida de imágenes a la conversación en vivo.
-- ✅ **Vista de Admin**: Cola de conversaciones activas, notificaciones de nuevos tickets y marcadores de mensajes "Leídos".
+1.  **Clonar el repositorio** (si es necesario) o descargar la carpeta del proyecto.
+2.  **Instalar dependencias globales/coordinador**:
+    En la raíz del proyecto, ejecuta:
+    ```bash
+    npm install
+    ```
+    *(Instalará `concurrently` para ejecutar Frontend y Backend a la vez).*
 
-### 4. **Panel de Usuario / Administrador**
-- ✅ Gestión de perfil (nombre, foto, contraseñas).
-- ✅ Historial de compras/órdenes por usuario.
-- ✅ **(Admin)** Control de estado de pedidos (Completado / Cancelado).
-- ✅ **(Admin)** Visualización de la lista completa de usuarios registrados.
-- ✅ Administración de Direcciones y Métodos de pago vinculados a la cuenta.
+3.  **Instalar dependencias del Backend**:
+    ```bash
+    cd backend
+    npm install
+    ```
 
----
+4.  **Instalar dependencias del Frontend**:
+    ```bash
+    cd ../frontend
+    npm install
+    ```
 
-## 📂 Organización del Proyecto
+### ▶️ Ejecución de la Aplicación
 
-El repositorio está dividido en dos grandes directorios para mantener una arquitectura limpia:
+Para ejecutar ambos servidores (Backend y Frontend) simultáneamente con un solo comando:
 
-```text
-├── backend/                  # Servidor Express + Socket.io
-│   ├── models/               # Modelos de Mongoose (Usuario, Orden, Mensaje, etc.)
-│   ├── routes/               # Enrutamiento de la API REST
-│   ├── uploads/              # Almacén de imágenes estáticas (perfiles, productos, chat)
-│   └── Chat Server 2.js       # Servidor unificado principal de la aplicación
-|
-└── frontend/                 # Aplicación Cliente Svelte 5
-    └── src/
-        ├── components/       # Componentes reutilizables (NavBar, Modales, etc.)
-        ├── pages/           # Vistas (CartPage, LoginPage, ProductsPage, ProfilePage, SupportHubPage)
-        ├── services/         # Consumo de APIs (auth, carrito, ordenes, usuarios)
-        └── state/            # app.svelte.js (Gestor de Estado Global Reactivo)
-```
+1.  Asegúrate de estar en la **raíz del proyecto**.
+2.  Ejecuta:
+    ```bash
+    npm run dev
+    ```
+    *   **Backend**: Correrá en el puerto configurado (usualmente 3000 o según `.env`).
+    *   **Frontend**: Correrá en un puerto Vite (ej: `http://localhost:5173`).
 
 ---
 
-## ⚙️ Instalación y Configuración
+## 🧩 Svelte 5 Runes
 
-### 1. Clonar el repositorio
-```bash
-git clone <URL_DEL_REPOSITORIO>
-cd PW-Proyecto 2
-```
+La aplicación utiliza las nuevas **Runes** de **Svelte 5** para la reactividad y gestión de datos. A continuación se detallan los runes empleados y sus casos de uso principales:
 
-### 2. Variables de Entorno (Backend)
-Crea un archivo `.env` dentro de la carpeta `backend/` con las siguientes configuraciones:
-```dotenv
-PORT=3000
-MONGO_URI=mongodb://localhost:27017/productos
-JWT_SECRET=tu_secreto_seguro
-```
+*   **`$state`**: define el estado reactivo.
+    *   `frontend/src/state/app.svelte.js` (Estado global `app`).
+    *   `SupportHubPage.svelte` y `ChatWidget.svelte` (Mensajes, conexiones socket).
+    *   `ProductsPage.svelte` (Filtros, modales, estado de carga).
+    *   `CartPage.svelte` (Promociones, procesos de pago).
 
-### 3. Instalar Dependencias
-Debes correr `npm install` tanto para el entorno de backend como para el frontend:
-```bash
-# Servidor
-cd backend && npm install
+*   **`$derived` / `$derived.by`**: reactividad basada en otros estados.
+    *   `CartPage.svelte`: Cálculo de totales (`subtotal`, `tax`, `total`), conteo de ítems (`cartCount`), y sugerencias de productos.
+    *   `ProductsPage.svelte`: Lista filtrada de productos (`productosFiltrados`) y límite de visualización.
 
-# Cliente
-cd ../frontend && npm install
-```
+*   **`$effect`**: manejo de efectos secundarios (side-effects).
+    *   `App.svelte`: Verificación de tokens y carga inicial.
+    *   `CartPage.svelte` y `ProductsPage.svelte`: Bloques para cargar datos desde la API cuando cambian ciertos parámetros o al montar el componente.
+
+*   **`$props`**: paso de propiedades entre componentes.
+    *   `NavBar.svelte`: Recibe la ruta actual (`currentPath`).
+    *   `ProductModal.svelte`: Recibe el producto a visualizar/editar y la función de cierre (`onClose`).
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto
+## 🔌 Backend Endpoints y Roles
 
-Puedes arrancar tanto el backend como el frontend de forma simultánea con un solo comando desde la **raíz del proyecto**:
+El Backend se organiza por módulos con rutas diferenciadas. Requieren autenticación mediante **JWT** (Header: `Authorization: Bearer <token>`).
 
-```bash
-# Ubícate en la raíz del proyecto
-npm run dev
-```
+### 🔑 Autenticación (`/auth`)
+| Método | Endpoint | Rol Necesario | Descripción |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/auth/registro` | **Público** | Registro de nuevos usuarios |
+| `POST` | `/auth/login` | **Público** | Inicio de sesión |
+| `GET` | `/auth/perfil` | Autenticado | Obtener datos del perfil actual |
+| `PUT` | `/auth/perfil` | Autenticado | Actualizar perfil/imagen |
+| `POST` | `/auth/direcciones` | Autenticado | Añadir dirección de envío |
 
-El servidor utiliza `concurrently` para correr el backend en el puerto `3000` y el entorno de Vite para el frontend. 
+### 📦 Productos (`/productos`)
+| Método | Endpoint | Rol Necesario | Descripción |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/productos` | **Público** | Listar todos los productos |
+| `GET` | `/productos/:id`| **Público** | Ver detalle de un producto |
+| `POST` | `/productos` | `administrador` | Crear un nuevo producto |
+| `PUT` | `/productos/:id`| `administrador` | Editar un producto existente |
+| `DELETE`| `/productos/:id`| `administrador` | Eliminar un producto |
+
+### 🛒 Carrito o Cesta (`/carrito`)
+*(Requieren Autenticación general)*
+*   `GET /`: Obtener el carrito del usuario.
+*   `POST /add`: Añadir producto.
+*   `PATCH /item/:productId`: Cambiar cantidad.
+*   `DELETE /item/:productId`: Quitar ítem.
+
+### 🧾 Órdenes/Pedidos (`/ordenes`)
+| Método | Endpoint | Rol Necesario | Descripción |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/ordenes` | `administrador` | Listar todas las órdenes del sistema |
+| `GET` | `/ordenes/mis-ordenes`| Autenticado | Listar historial propio de órdenes |
+| `POST` | `/ordenes` | Autenticado | Checkout (Crear orden del carrito) |
+| `PATCH`| `/ordenes/:id/status`| `administrador` | Actualizar estado (Pendiente, etc.) |
+
+### 👥 Usuarios (`/usuarios`)
+*   **Rol Requerido:** `administrador` para todos los endpoints.
+*   `GET /`, `POST /`, `PUT /:id`, `DELETE /:id` para gestión administrativa de cuentas de usuario.
 
 ---
 
-## 📌 Notas Adicionales
-- Para consultar o previsualizar la base de datos de manera visual, se recomienda utilizar **MongoDB Compass**.
-- El puerto `3000` debe estar libre para que el Chat y la API interactúen sin errores de CORS bloqueados.
+## 📚 Documentación
 
----
-
-## 🔗 Repositorio
-- [PW2-Practica-1](https://github.com/Lpsolaress/PW2-Practica-1.git)
+> [!IMPORTANT]
+> Es **necesario** subir este documento y cualquier otra documentación adjunta al **Campus virtual** para la validación de la entrega.
