@@ -12,24 +12,35 @@ Este proyecto consiste en una aplicación web con un **Frontend** desarrollado e
 
 ### Pasos para la Instalación
 
-1.  **Clonar el repositorio** (si es necesario) o descargar la carpeta del proyecto.
-2.  **Instalar dependencias globales/coordinador**:
+1.  **Clonar el repositorio**:
+    ```bash
+    git clone https://github.com/Lpsolaress/PW2-Practica-1.git
+    cd "PW-Proyecto 2"
+    ```
+
+2.  **Configurar Variables de Entorno (Backend)**:
+    Crea un archivo `.env` dentro de la carpeta `backend/` con las siguientes configuraciones:
+    ```dotenv
+    PORT=3000
+    MONGO_URI=mongodb://127.0.0.1:27017/productos
+    JWT_SECRET=tu_secreto_seguro
+    ```
+
+3.  **Instalar dependencias globales/coordinador**:
     En la raíz del proyecto, ejecuta:
     ```bash
     npm install
     ```
     *(Instalará `concurrently` para ejecutar Frontend y Backend a la vez).*
 
-3.  **Instalar dependencias del Backend**:
+4.  **Instalar dependencias del Backend**:
     ```bash
-    cd backend
-    npm install
+    cd backend && npm install
     ```
 
-4.  **Instalar dependencias del Frontend**:
+5.  **Instalar dependencias del Frontend**:
     ```bash
-    cd ../frontend
-    npm install
+    cd ../frontend && npm install
     ```
 
 ### ▶️ Ejecución de la Aplicación
@@ -42,7 +53,7 @@ Para ejecutar ambos servidores (Backend y Frontend) simultáneamente con un solo
     npm run dev
     ```
     *   **Backend**: Correrá en el puerto configurado (usualmente 3000 o según `.env`).
-    *   **Frontend**: Correrá en un puerto Vite (ej: `http://localhost:5173`).
+    *   **Frontend**: Correrá en un entorno Vite (ej: `http://localhost:5173`).
 
 ---
 
@@ -110,6 +121,17 @@ El Backend se organiza por módulos con rutas diferenciadas. Requieren autentica
 ### 👥 Usuarios (`/usuarios`)
 *   **Rol Requerido:** `administrador` para todos los endpoints.
 *   `GET /`, `POST /`, `PUT /:id`, `DELETE /:id` para gestión administrativa de cuentas de usuario.
+
+---
+
+## 📌 Notas Adicionales
+- Para consultar o previsualizar la base de datos de manera visual, se recomienda utilizar **MongoDB Compass**.
+- El puerto `3000` debe estar libre para que el Chat y la API interactúen sin errores de CORS bloqueados.
+
+---
+
+## 🔗 Repositorio
+- [PW2-Practica-1](https://github.com/Lpsolaress/PW2-Practica-1.git)
 
 ---
 
