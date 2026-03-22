@@ -132,10 +132,3 @@ El Backend se organiza por módulos con rutas diferenciadas. Requieren autentica
 
 ## 🔗 Repositorio
 - [PW2-Practica-1](https://github.com/Lpsolaress/PW2-Practica-1.git)
-
----
-
-## 📚 Documentación
-
-> [!IMPORTANT]
-> Es **necesario** subir este documento y cualquier otra documentación adjunta al **Campus virtual** para la validación de la entrega.
